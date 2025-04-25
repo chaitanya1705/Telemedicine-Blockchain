@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - TeleMedicine</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>TeleMedicine</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#" id="logout-btn" class="btn login-btn">Logout</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="theme-toggle-btn">
+                    <span class="light-icon">☀️</span>
+                    <span class="dark-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" data-tab="overview">Overview</a></li>
+                <li><a href="#" data-tab="doctors">Pending Doctors</a></li>
+                <li><a href="#" data-tab="patients">Registered Patients</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <!-- Overview Tab -->
+            <section id="overview" class="dashboard-tab active">
+                <div class="dashboard-header">
+                    <h2>Admin Dashboard</h2>
+                    <p>Your Ethereum Address: <span id="admin-address"></span></p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Pending Doctors</h3>
+                        <p class="stat-number" id="pending-doctors-count">0</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Verified Doctors</h3>
+                        <p class="stat-number" id="verified-doctors-count">0</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Registered Patients</h3>
+                        <p class="stat-number" id="registered-patients-count">0</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Doctors Tab -->
+            <section id="doctors" class="dashboard-tab">
+                <div class="dashboard-header">
+                    <h2>Doctors Pending Verification</h2>
+                </div>
+
+                <table class="data-table" id="pending-doctors-table">
+                    <thead>
+                        <tr>
+                            <th>Doctor Name</th>
+                            <th>Specialization</th>
+                            <th>License Number</th>
+                            <th>Ethereum Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Pending doctors will be dynamically loaded here -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Patients Tab -->
+            <section id="patients" class="dashboard-tab">
+                <div class="dashboard-header">
+                    <h2>Registered Patients</h2>
+                </div>
+
+                <table class="data-table" id="patients-table">
+                    <thead>
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Age</th>
+                            <th>Ethereum Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Patients will be dynamically loaded here -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>TeleMedicine</h2>
+                    <p>Blockchain-powered healthcare</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@telemedicine-eth.com</p>
+                    <p>Phone: (123) 456-7890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TeleMedicine Ethereum Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Debug Information -->
+    <div class="debug-info" style="background-color: #f5f5f5; padding: 10px; margin: 10px; border: 1px solid #ddd; display: none;">
+        <h3>Debug Information</h3>
+        <button id="toggle-debug">Show Debug Info</button>
+        <div id="debug-content" style="display: none;">
+            <p><strong>Is Admin:</strong> <span id="debug-is-admin"></span></p>
+            <p><strong>Account:</strong> <span id="debug-account"></span></p>
+            <p><strong>Contract Addresses:</strong> <pre id="debug-contract-addresses"></pre></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

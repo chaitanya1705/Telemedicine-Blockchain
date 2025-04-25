@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - TeleMedicine</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>TeleMedicine</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#" id="logout-btn" class="btn login-btn">Logout</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="theme-toggle-btn">
+                    <span class="light-icon">☀️</span>
+                    <span class="dark-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="debug-info" style="background-color: #f5f5f5; padding: 10px; margin: 10px; border: 1px solid #ddd;">
+        <h3>Debug Information</h3>
+        <button id="toggle-debug">Show/Hide Debug Info</button>
+        <div id="debug-content">
+            <p><strong>Account:</strong> <span id="debug-account"></span></p>
+            <p><strong>Is Doctor:</strong> <span id="debug-is-doctor"></span></p>
+            <p><strong>Is Patient:</strong> <span id="debug-is-patient"></span></p>
+            <p><strong>User Details:</strong></p>
+            <pre id="debug-user-details"></pre>
+            <p><strong>Contract Addresses:</strong></p>
+            <pre id="debug-contract-addresses"></pre>
+            <hr>
+            <button id="debug-load-details">Force Load User Details</button>
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle debug info
+        document.getElementById('toggle-debug').addEventListener('click', function() {
+            const debugContent = document.getElementById('debug-content');
+            debugContent.style.display = debugContent.style.display === 'none' ? 'block' : 'none';
+        });
+        
+        // Update debug info
+        function updateDebugInfo() {
+            document.getElementById('debug-account').textContent = currentAccount || 'Not connected';
+            document.getElementById('debug-is-doctor').textContent = isDoctor;
+            document.getElementById('debug-is-patient').textContent = isPatient;
+            document.getElementById('debug-user-details').textContent = JSON.stringify(userDetails, null, 2);
+            
+            // Get contract addresses
+            fetch('js/contract-addresses.js')
+                .then(response => response.text())
+                .then(text => {
+                    try {
+                        const startIndex = text.indexOf('{');
+                        const endIndex = text.lastIndexOf('}') + 1;
+                        const addressesJson = text.substring(startIndex, endIndex);
+                        document.getElementById('debug-contract-addresses').textContent = addressesJson;
+                    } catch (error) {
+                        document.getElementById('debug-contract-addresses').textContent = 'Error parsing addresses: ' + error.message;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('debug-contract-addresses').textContent = 'Error loading addresses: ' + error.message;
+                });
+        }
+        
+        // Update debug info immediately and every 3 seconds
+        updateDebugInfo();
+        setInterval(updateDebugInfo, 3000);
+        
+        // Force load user details
+        document.getElementById('debug-load-details').addEventListener('click', async function() {
+            try {
+                this.textContent = 'Loading...';
+                await loadUserDetails();
+                updateDebugInfo();
+                this.textContent = 'Force Load User Details';
+                alert('User details reloaded. Check the debug information.');
+            } catch (error) {
+                console.error('Error loading user details:', error);
+                this.textContent = 'Error - Try Again';
+                alert('Error: ' + error.message);
+            }
+        });
+    });
+        if (isPatient) {
+    const appointments = await consultationInstance.methods
+        .getPatientAppointments()
+        .call({ from: currentAccount });
+
+    await loadPatientAppointmentsTable(appointments);
+    }
+
+    </script>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" data-tab="overview">Overview</a></li>
+                <li><a href="#" data-tab="appointments">My Appointments</a></li>
+                <li><a href="#" data-tab="prescriptions">My Prescriptions</a></li>
+                <li><a href="#" data-tab="new-appointment">Book Appointment</a></li>
+                <li><a href="#" data-tab="profile">My Profile</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <!-- Overview Tab -->
+            <section id="overview" class="dashboard-tab active">
+                <div class="dashboard-header">
+                    <h2>Welcome, <span id="patient-name">Patient</span></h2>
+                    <p>Your Ethereum Address: <span id="patient-address"></span></p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Upcoming Appointments</h3>
+                        <p class="stat-number" id="upcoming-appointments-count">0</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Active Prescriptions</h3>
+                        <p class="stat-number" id="active-prescriptions-count">0</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Account Status</h3>
+                        <p class="status-badge" id="account-status">Connected</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-timeline" id="recent-activity">
+                        <!-- Activity items will be added dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Appointments Tab -->
+            <section id="appointments" class="dashboard-tab">
+                <div class="dashboard-header">
+                    <h2>My Appointments</h2>
+                </div>
+
+                <div class="filter-options">
+                    <select id="appointment-filter" class="form-control">
+                        <option value="all">All Appointments</option>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <table class="data-table" id="appointments-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Doctor</th>
+                            <th>Date & Time</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Appointment data will be added dynamically -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Prescriptions Tab -->
+            <section id="prescriptions" class="dashboard-tab">
+                <div class="dashboard-header">
+                    <h2>My Prescriptions</h2>
+                </div>
+
+                <table class="data-table" id="prescriptions-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Doctor</th>
+                            <th>Medication</th>
+                            <th>Issued Date</th>
+                            <th>Expiry Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Prescription data will be added dynamically -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- New Appointment Tab -->
+            <section id="new-appointment" class="dashboard-tab">
+                <div class="dashboard-header">
+                    <h2>Book a New Appointment</h2>
+                </div>
+
+                <div class="form-container">
+                    <form id="appointment-form">
+                        <div class="form-group">
+                            <label for="doctor-select">Select Doctor</label>
+                            <select id="doctor-select" class="form-control" required>
+                                <option value="">-- Select a Doctor --</option>
+                                <!-- Doctor options will be added dynamically -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appointment-date">Date</label>
+                            <input type="date" id="appointment-date" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appointment-time">Time</label>
+                            <input type="time" id="appointment-time" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appointment-duration">Duration (minutes)</label>
+                            <input type="number" id="appointment-duration" class="form-control" min="15" step="15" value="30" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="symptoms">Describe Your Symptoms</label>
+                            <textarea id="symptoms" class="form-control" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn primary-btn">Schedule Appointment</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Profile Tab -->
+            <section id="profile" class="dashboard-tab">
+                <div class="dashboard-header">
+                    <h2>My Profile</h2>
+                </div>
+
+                <div class="form-container">
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label for="profile-name">Full Name</label>
+                            <input type="text" id="profile-name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profile-age">Age</label>
+                            <input type="number" id="profile-age" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profile-medical-history">Medical History</label>
+                            <textarea id="profile-medical-history" class="form-control"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn primary-btn">Update Profile</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>TeleMedicine</h2>
+                    <p>Blockchain-powered healthcare</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@telemedicine-eth.com</p>
+                    <p>Phone: (123) 456-7890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TeleMedicine Ethereum Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="./js/consultation.js"></script>
+    <script src="./js/prescription.js"></script>
+    <script>
+        async function checkDoctorEvents() {
+  try {
+    console.log("Checking for doctor events...");
+    const events = await userManagementInstance.getPastEvents('DoctorRegistered', {
+      fromBlock: 0,
+      toBlock: 'latest'
+    });
+    console.log("Doctor events found:", events);
+    console.log("Number of doctor registrations:", events.length);
+    
+    // Check each doctor's verification status
+    for (let event of events) {
+      const address = event.returnValues.doctorAddress;
+      const isVerified = await authenticationInstance.methods.isDoctor(address).call();
+      console.log(`Doctor ${address} verified status:`, isVerified);
+    }
+  } catch (error) {
+    console.error("Error checking doctor events:", error);
+  }
+}
+
+checkDoctorEvents();
+    </script>
+</body>
+</html>

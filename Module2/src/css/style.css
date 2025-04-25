@@ -1,0 +1,358 @@
+/* Base Styles */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --accent-color: #e74c3c;
+    --text-color: #333;
+    --light-text: #666;
+    --lighter-text: #999;
+    --background-color: #fff;
+    --secondary-bg: #f5f8fa;
+    --border-color: #ddd;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+    --border-radius: 8px;
+    --container-width: 1200px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    color: #2980b9;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Notification Area */
+#notificationArea {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    z-index: 1000;
+}
+
+#notificationArea .alert {
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transition: opacity 0.5s;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--background-color);
+    box-shadow: 0 2px 10px var(--shadow-color);
+    padding: 15px 0;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.nav-link {
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color var(--transition-speed);
+    margin: 0 10px;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+#accountDisplay {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    margin-right: 10px;
+}
+
+/* Main Sections */
+.section {
+    padding: 40px 0;
+}
+
+/* Welcome Section */
+.welcome-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 30px 0;
+    margin-bottom: 40px;
+}
+
+.welcome-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0;
+}
+
+.welcome-subheader {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--light-text);
+    font-size: 1.2rem;
+}
+
+/* Login Section */
+#loginSection {
+    text-align: center;
+    padding: 60px 0;
+}
+
+#loginSection .alert-info {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    background-color: var(--secondary-bg);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 20px;
+}
+
+#loginBtnLarge {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed);
+}
+
+#loginBtnLarge:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+/* Registration Section */
+#registrationSection {
+    background-color: var(--secondary-bg);
+    padding: 60px 0;
+    border-radius: var(--border-radius);
+    margin: 20px 0;
+}
+
+.registration-box {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: var(--background-color);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.registration-box h2 {
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 10px 15px;
+    width: 100%;
+    transition: border-color var(--transition-speed);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed);
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+/* Dashboard Sections */
+.dashboard-card {
+    background-color: var(--background-color);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px var(--shadow-color);
+    margin-bottom: 30px;
+}
+
+.dashboard-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.table thead th {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.table td, .table th {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: var(--secondary-bg);
+}
+
+.badge {
+    padding: 6px 10px;
+    font-weight: 500;
+    border-radius: 20px;
+}
+
+/* Doctor Dashboard */
+#prescriptionForm .row {
+    margin-bottom: 15px;
+}
+
+/* Pharmacist Dashboard */
+.prescription-detail {
+    background-color: var(--secondary-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-top: 20px;
+}
+
+.prescription-detail dt {
+    font-weight: 600;
+    color: var(--light-text);
+}
+
+.prescription-detail dd {
+    margin-bottom: 10px;
+}
+
+#prescriptionDetails {
+    margin-top: 30px;
+}
+
+/* Buttons */
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.875rem;
+}
+
+.btn-info {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-info:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+.btn-danger {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.modal-header {
+    background-color: var(--primary-color);
+    color: white;
+    border-bottom: none;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    border-top: none;
+    padding: 15px 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .welcome-header h1 {
+        font-size: 2rem;
+    }
+    
+    .registration-box {
+        padding: 20px;
+    }
+    
+    #accountDisplay {
+        display: none;
+    }
+    
+    .table-responsive {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .welcome-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .dashboard-card {
+        padding: 15px;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

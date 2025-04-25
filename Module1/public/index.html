@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeleMedicine Ethereum Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>TeleMedicine</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#login" class="btn login-btn">Login</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="theme-toggle-btn">
+                    <span class="light-icon">☀️</span>
+                    <span class="dark-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Decentralized Healthcare on Ethereum</h2>
+                    <p>Connect with doctors, schedule appointments, and receive prescriptions securely on the blockchain.</p>
+                    
+                </div>
+                <div class="hero-image">
+                    <img src="assets/images/bc_image.svg" alt="Telemedicine Illustration">
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About Our Platform</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Our blockchain-based telemedicine platform ensures your medical data remains secure, private, and immutable. All medical records and prescriptions are stored on the Ethereum blockchain, giving you full control over your health information.</p>
+                    </div>
+                    <div class="about-features">
+                        <div class="feature">
+                            <h3>Secure</h3>
+                            <p>All data is encrypted and stored on the blockchain</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Transparent</h3>
+                            <p>See who accessed your medical records and when</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Immutable</h3>
+                            <p>Medical records cannot be altered or deleted</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">👨‍⚕️</div>
+                        <h3>Doctor Consultations</h3>
+                        <p>Connect with verified doctors for online consultations</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📅</div>
+                        <h3>Appointment Scheduling</h3>
+                        <p>Book and manage appointments with ease</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💊</div>
+                        <h3>Digital Prescriptions</h3>
+                        <p>Receive digitally signed and verified prescriptions</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📋</div>
+                        <h3>Medical Records</h3>
+                        <p>Secure storage and access to your medical history</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="login" class="login-section">
+            <div class="container">
+                <div class="login-box">
+                    <h2>Connect with MetaMask</h2>
+                    <p>Use your Ethereum wallet to securely log in to the platform</p>
+                    <button id="connect-wallet-btn" class="btn primary-btn">Connect Wallet</button>
+                    <div id="connection-status"></div>
+                    <div id="metamask-status"></div>
+                    <button id="admin-login-btn" class="btn secondary-btn" style="display: none; margin-top: 10px;">
+                        Access Admin Dashboard
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- New section for registration -->
+        <section id="register" class="register-section" style="display: none;">
+            <div class="container">
+                <div class="register-box">
+                    <h2>Register</h2>
+                    <div class="register-options">
+                        <button id="register-doctor-btn" class="btn primary-btn">Register as Doctor</button>
+                        <button id="register-patient-btn" class="btn secondary-btn">Register as Patient</button>
+                    </div>
+                    
+                    <!-- Doctor Registration Form -->
+                    <form id="doctor-registration-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="doctor-name">Full Name</label>
+                            <input type="text" id="doctor-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="doctor-specialization">Specialization</label>
+                            <input type="text" id="doctor-specialization" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="doctor-license">License Number</label>
+                            <input type="text" id="doctor-license" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Register</button>
+                    </form>
+                    
+                    <!-- Patient Registration Form -->
+                    <form id="patient-registration-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="patient-name">Full Name</label>
+                            <input type="text" id="patient-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-age">Age</label>
+                            <input type="number" id="patient-age" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-medical-history">Medical History</label>
+                            <textarea id="patient-medical-history" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Register</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>TeleMedicine</h2>
+                    <p>Blockchain-powered healthcare</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Done by:</h3>
+                    <p>Chaitanya N </p>
+                    <p>Deepesh</p>
+                    <p>Akash R Jadhav</p>
+                    <p>Akileshkumar</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>TeleMedicine Ethereum Platform Made with ❤️ @ PESU</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load Web3 first -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    
+    <!-- Then load your application scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    
+    <script>
+        // Override loadUserDetails to allow doctor login even when not verified
+        async function loadUnverifiedDoctorDetails() {
+            console.log("Checking for unverified doctor...");
+            try {
+                // Try to get doctor details directly without checking isDoctor
+                const result = await userManagementInstance.methods.getDoctorDetails(currentAccount).call();
+                console.log("Raw doctor result:", result);
+                
+                if (result && result.name) {
+                    userDetails = {
+                        name: result.name,
+                        specialization: result.specialization,
+                        licenseNumber: result.licenseNumber,
+                        isVerified: result.isVerified
+                    };
+                    
+                    console.log("Unverified doctor details loaded:", userDetails);
+                    
+                    // Update UI
+                    const doctorNameEl = document.getElementById('doctor-name');
+                    const doctorAddressEl = document.getElementById('doctor-address');
+                    
+                    if (doctorNameEl) doctorNameEl.textContent = userDetails.name;
+                    if (doctorAddressEl) doctorAddressEl.textContent = currentAccount;
+                    
+                    // Update verification status
+                    const verificationStatus = document.getElementById('verification-status');
+                    if (verificationStatus) {
+                        verificationStatus.textContent = userDetails.isVerified ? 'Verified' : 'Pending';
+                        verificationStatus.style.color = userDetails.isVerified ? 'green' : 'orange';
+                    }
+                    
+                    return true;
+                }
+            } catch (error) {
+                console.log("Not an unverified doctor:", error.message);
+            }
+            return false;
+        }
+        
+        // Add this override to window.onload
+        window.addEventListener('load', async function() {
+            // Wait for Web3 initialization
+            setTimeout(async function() {
+                if (window.location.pathname.includes('doctor-dashboard')) {
+                    if (!isDoctor && currentAccount) {
+                        const loaded = await loadUnverifiedDoctorDetails();
+                        if (loaded) {
+                            // Show a warning about pending verification
+                            const header = document.querySelector('.dashboard-header');
+                            if (header) {
+                                const warning = document.createElement('div');
+                                warning.style.backgroundColor = '#fffacd';
+                                warning.style.padding = '10px';
+                                warning.style.borderRadius = '5px';
+                                warning.style.marginTop = '10px';
+                                warning.innerHTML = '<strong>Notice:</strong> Your account is pending admin verification. Some features may be limited until verification is completed.';
+                                header.appendChild(warning);
+                            }
+                        }
+                    }
+                }
+            }, 2000); // Wait for 2 seconds to ensure Web3 is initialized
+        });
+        </script>
+        <div id="error-container" style="display: none; background-color: #ffebee; color: #c62828; padding: 10px; margin: 10px; border-radius: 5px; border: 1px solid #ef5350;"></div>
+
+        <script>
+        // Helper function to show errors
+        function showError(message) {
+            const errorContainer = document.getElementById('error-container');
+            if (errorContainer) {
+                errorContainer.style.display = 'block';
+                errorContainer.textContent = message;
+            }
+        }
+        </script>
+</body>
+</html>

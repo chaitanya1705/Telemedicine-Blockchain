@@ -1,0 +1,19 @@
+{
+    "name": "prescription-blockchain-system",
+    "version": "1.0.0",
+    "description": "Blockchain-based prescription management system",
+    "main": "truffle-config.js",
+    "scripts": {
+      "dev": "lite-server",
+      "test": "truffle test",
+      "update-contract": "node update-contract-info.js",
+      "deploy": "truffle migrate --reset && npm run update-contract"
+    },
+    "dependencies": {
+      "@truffle/contract": "^4.5.0",
+      "bootstrap": "^5.2.3",
+      "lite-server": "^2.6.1",
+      "web3": "^1.8.0"
+    }
+  }
+  
